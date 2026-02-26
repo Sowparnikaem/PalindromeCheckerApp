@@ -1,13 +1,23 @@
 public class PalindromeCheckerApp {
-    /*
-    UC1
-    @author Developer
-    @version 1.0
-     */
+    public static void main(String[] args) {
+        String input = "madam";
+        boolean isPalindrome = checkPalindrome(input);
 
- public static void main(String[] args){
-    System.out.println("Welcome to the Palindrome Checker Management System");
-     System.out.println("Version : 1.0");
-     System.out.println("System initialized successfully");
-  }
+        System.out.println("Input text: " + input);
+        System.out.println("Is it a Palindrome? : " + isPalindrome);
+    }
+
+    public static boolean checkPalindrome(String text) {
+        int left = 0;
+        int right = text.length() - 1;
+
+        while (left < right) {
+            if (text.charAt(left) != text.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
+    }
 }
