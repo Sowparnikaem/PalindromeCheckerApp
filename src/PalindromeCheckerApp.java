@@ -1,36 +1,35 @@
 
 
-public class UseCase9PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
 
     public static void main(String[] args) {
-        String input = "deified";
+
+        String input = "A man, a plan, a canal: Panama";
 
 
-        boolean isPalindrome = check(input.toLowerCase(), 0, input.length() - 1);
+        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        boolean isPalindrome = true;
 
 
-        System.out.println("Input String: " + input);
+        for (int i = 0; i < normalized.length() / 2; i++) {
+
+
+            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
+                isPalindrome = false;
+                break;
+            }
+        }
+
+
+        System.out.println("Original: " + input);
+        System.out.println("Normalized: " + normalized);
+
         if (isPalindrome) {
-            System.out.println("Result: The string is a palindrome.");
+            System.out.println("Result: The string is a logical palindrome.");
         } else {
-            System.out.println("Result: The string is NOT a palindrome.");
+            System.out.println("Result: The string is NOT a logical palindrome.");
         }
-    }
-
-
-    private static boolean check(String s, int start, int end) {
-
-        if (start >= end) {
-            return true;
-        }
-
-
-        if (s.charAt(start) != s.charAt(end)) {
-            return false;
-        }
-
-
-        return check(s, start + 1, end - 1);
     }
 }
