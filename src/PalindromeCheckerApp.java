@@ -5,31 +5,42 @@ public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
-        String input = "A man, a plan, a canal: Panama";
+        PalindromeService service = new PalindromeService();
+
+        String input = "Level";
 
 
-        String normalized = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-
-        boolean isPalindrome = true;
+        boolean isPalindrome = service.checkPalindrome(input);
 
 
-        for (int i = 0; i < normalized.length() / 2; i++) {
+        System.out.println("Testing String: " + input);
+        System.out.println("Is Palindrome: " + isPalindrome);
+    }
+}
 
 
-            if (normalized.charAt(i) != normalized.charAt(normalized.length() - 1 - i)) {
-                isPalindrome = false;
-                break;
+class PalindromeService {
+
+
+    public boolean checkPalindrome(String input) {
+        if (input == null) return false;
+
+
+        String str = input.toLowerCase();
+
+
+        int start = 0;
+        int end = str.length() - 1;
+
+
+        while (start < end) {
+            if (str.charAt(start) != str.charAt(end)) {
+                return false;
             }
+            start++;
+            end--;
         }
 
-
-        System.out.println("Original: " + input);
-        System.out.println("Normalized: " + normalized);
-
-        if (isPalindrome) {
-            System.out.println("Result: The string is a logical palindrome.");
-        } else {
-            System.out.println("Result: The string is NOT a logical palindrome.");
-        }
+        return true;
     }
 }
