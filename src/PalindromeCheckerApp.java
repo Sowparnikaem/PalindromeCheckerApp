@@ -1,51 +1,32 @@
 
-import java.util.Stack;
-
 
 public class PalindromeCheckerApp {
 
+
     public static void main(String[] args) {
-        String testInput = "wasitacaroracatisaw";
+
+        String testInput = "a".repeat(1000000) + "b" + "a".repeat(1000000);
 
 
-        PalindromeStrategy strategy = new StackStrategy();
+        PalindromeCheckerApp stackStrategy = new PalindromeCheckerApp();
 
 
-        boolean result = strategy.isValid(testInput);
+        long startTime = System.nanoTime();
 
 
-        System.out.println("Input: " + testInput);
-        System.out.println("Strategy Used: Stack-based");
+        boolean result = stackStrategy.isValid(testInput);
+
+
+        long endTime = System.nanoTime();
+
+
+        long duration = endTime - startTime;
+
+
+        System.out.println("--- Benchmarking Results ---");
+        System.out.println("Input Length: " + testInput.length());
         System.out.println("Is Palindrome: " + result);
-    }
-}
-
-
-interface PalindromeStrategy {
-    boolean isValid(String input);
-}
-
-
-class StackStrategy implements PalindromeStrategy {
-
-    @Override
-    public boolean isValid(String input) {
-        if (input == null) return false;
-
-        String cleanInput = input.toLowerCase();
-        Stack<Character> stack = new Stack<>();
-
-
-        for (char c : cleanInput.toCharArray()) {
-            stack.push(c);
-        }
-
-
-        for (char c : cleanInput.toCharArray()) {
-            if (c != stack.pop()) {
-                return false;
-            }
-        }
-        return true;
+        System.out.println("Execution Time: " + duration + " ns");
+        System.out.println("Execution Time: " + (duration / 1_000_000.0) + " ms");
     }
 }
