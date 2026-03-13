@@ -1,46 +1,51 @@
 
+import java.util.Stack;
+
 
 public class PalindromeCheckerApp {
 
-
     public static void main(String[] args) {
-
-        PalindromeService service = new PalindromeService();
-
-        String input = "Level";
+        String testInput = "wasitacaroracatisaw";
 
 
-        boolean isPalindrome = service.checkPalindrome(input);
+        PalindromeStrategy strategy = new StackStrategy();
 
 
-        System.out.println("Testing String: " + input);
-        System.out.println("Is Palindrome: " + isPalindrome);
+        boolean result = strategy.isValid(testInput);
+
+
+        System.out.println("Input: " + testInput);
+        System.out.println("Strategy Used: Stack-based");
+        System.out.println("Is Palindrome: " + result);
     }
 }
 
 
-class PalindromeService {
+interface PalindromeStrategy {
+    boolean isValid(String input);
+}
 
 
-    public boolean checkPalindrome(String input) {
+class StackStrategy implements PalindromeStrategy {
+
+    @Override
+    public boolean isValid(String input) {
         if (input == null) return false;
 
-
-        String str = input.toLowerCase();
-
-
-        int start = 0;
-        int end = str.length() - 1;
+        String cleanInput = input.toLowerCase();
+        Stack<Character> stack = new Stack<>();
 
 
-        while (start < end) {
-            if (str.charAt(start) != str.charAt(end)) {
-                return false;
-            }
-            start++;
-            end--;
+        for (char c : cleanInput.toCharArray()) {
+            stack.push(c);
         }
 
+
+        for (char c : cleanInput.toCharArray()) {
+            if (c != stack.pop()) {
+                return false;
+            }
+        }
         return true;
     }
 }
